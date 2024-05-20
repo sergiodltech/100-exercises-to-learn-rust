@@ -10,6 +10,16 @@
 //
 // Use only what you learned! No loops yet, so you'll have to use recursion!
 
+fn factorial(seed: u32) -> u32 {
+    if seed < 0 {
+        panic!("Cannot compute factorial of a negative number.");
+    }
+    if seed == 0 || seed == 1 {
+        return 1;
+    }
+    seed * (factorial(seed - 1))
+}
+
 #[cfg(test)]
 mod tests {
     use crate::factorial;
