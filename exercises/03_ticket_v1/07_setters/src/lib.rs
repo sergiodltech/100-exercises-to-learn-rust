@@ -10,21 +10,43 @@ pub struct Ticket {
 }
 
 impl Ticket {
-    pub fn new(title: String, description: String, status: String) -> Ticket {
+    fn validate_title(title: &String) -> (bool, &str) {
         if title.is_empty() {
-            panic!("Title cannot be empty");
+            return (false, "Title cannot be empty");
         }
         if title.len() > 50 {
-            panic!("Title cannot be longer than 50 bytes");
+            return (false, "Title cannot be longer than 50 characters");
         }
-        if description.is_empty() {
-            panic!("Description cannot be empty");
+        return (true, "");
+    }
+    fn validate_description(desc: &String) -> (bool, &str) {
+        if desc.is_empty() {
+            return (false, "Description cannot be empty");
         }
-        if description.len() > 500 {
-            panic!("Description cannot be longer than 500 bytes");
+        if desc.len() > 500 {
+            return (false, "Description cannot be longer than 500 characters");
         }
+        return (true, "");
+    }
+    fn validate_status(status: &String) -> (bool, &str) {
         if status != "To-Do" && status != "In Progress" && status != "Done" {
-            panic!("Only `To-Do`, `In Progress`, and `Done` statuses are allowed");
+            return (false, "Only `To-Do`, `In Progress`, and `Done` statuses are allowed");
+        }
+        return (true, "");
+    }
+
+    pub fn new(title: String, description: String, status: String) -> Ticket {
+        let (is_valid, err_msg) = Self::validate_title(&title);
+        if !is_valid {
+            panic!("{}", err_msg);
+        }
+        let (is_valid, err_msg) = Self::validate_description(&description);
+        if !is_valid {
+            panic!("{}", err_msg);
+        }
+        let (is_valid, err_msg) = Self::validate_status(&status);
+        if !is_valid {
+            panic!("{}", err_msg);
         }
 
         Ticket {
@@ -37,13 +59,34 @@ impl Ticket {
     pub fn title(&self) -> &String {
         &self.title
     }
+    pub fn set_title(&mut self, new_title: String) {
+        let (is_valid, err_msg) = Self::validate_title(&new_title);
+        if !is_valid {
+            panic!("{}", err_msg);
+        }
+        self.title = new_title;
+    }
 
     pub fn description(&self) -> &String {
         &self.description
     }
+    pub fn set_description(&mut self, new_description: String) {
+        let (is_valid, err_msg) = Self::validate_description(&new_description);
+        if !is_valid {
+            panic!("{}", err_msg);
+        }
+        self.description = new_description;
+    }
 
     pub fn status(&self) -> &String {
         &self.status
+    }
+    pub fn set_status(&mut self, new_status: String) {
+        let (is_valid, err_msg) = Self::validate_status(&new_status);
+        if !is_valid {
+            panic!("{}", err_msg);
+        }
+        self.status = new_status;
     }
 }
 
