@@ -15,7 +15,7 @@ impl Ticket {
             return (false, "Title cannot be empty");
         }
         if title.len() > 50 {
-            return (false, "Title cannot be longer than 50 characters");
+            return (false, "Title cannot be longer than 50 bytes");
         }
         return (true, "");
     }
@@ -24,7 +24,7 @@ impl Ticket {
             return (false, "Description cannot be empty");
         }
         if desc.len() > 500 {
-            return (false, "Description cannot be longer than 500 characters");
+            return (false, "Description cannot be longer than 500 bytes");
         }
         return (true, "");
     }
