@@ -1,5 +1,5 @@
 mod ticket {
-    struct Ticket {
+    pub struct Ticket {
         title: String,
         description: String,
         status: String,
@@ -48,7 +48,7 @@ mod tests {
 
         // You should be seeing this error when trying to run this exercise:
         //
-        // error[E0616]: field `description` of struct `Ticket` is private
+        // error[E0616]: field `description` of struct `encapsulation::ticket::Ticket` is private
         //    |
         //    |              assert_eq!(ticket.description, "A description");
         //    |                         ^^^^^^^^^^^^^^^^^^
