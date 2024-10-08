@@ -22,7 +22,7 @@ impl From<u8> for SaturatingU16 {
 }
 impl From<&u16> for SaturatingU16 {
     fn from(value: &u16) -> Self {
-        Self { value: *value }
+        Self { value: (*value).into() }
     }
 }
 impl From<&u8> for SaturatingU16 {
@@ -66,13 +66,13 @@ impl Add<&u16> for SaturatingU16 {
         }
     }
 }
-impl Deref for SaturatingU16 {
-    type Target = u16;
-
-    fn deref(&self) -> &Self::Target {
-        &self.value
+impl Add<&SaturatingU16> for SaturatingU16 {
+    type Output = SaturatingU16;
+    fn add(self, rhs: &SaturatingU16) -> Self::Output {
+        self + *rhs
     }
 }
+
 impl PartialEq<u16> for SaturatingU16 {
     fn eq(&self, other: &u16) -> bool {
         self.value == *other
