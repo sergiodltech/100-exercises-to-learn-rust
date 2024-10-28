@@ -11,9 +11,9 @@ impl Add for WrappingU32 {
     type Output = Self;
 
     fn add(self, other: Self) -> Self {
-        Self {
-            value: self.value + other.value
-        }
+        Self::new (
+            self.value.wrapping_add(other.value)
+        )
     }
 }
 
